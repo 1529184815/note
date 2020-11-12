@@ -1,0 +1,26 @@
+@Mapper 如果不配置@MapperScan属性使用，书写sql语句
+@Select 查询
+@Insert 插入
+@Delete 删除
+@Update 更新
+
+@Results 配置映射关系（id=“usermapper”，value={@Result（），@Result（）
+@Result 配置表和类属性的关系和@Results 一起用
+@ResultMap（usermapper）使用@Results配置的映射关系
+@Result(column="uid",property="user",one=@One(select="com.itheima.dao.IUserDao.findById",fetchType=FetchType.LAZY) ) FetchType.LAZY延迟加载
+@One select，fetchType
+@Many select，fetchType
+
+Mapper的三种方式
+1.SqlSessionDaoSupport
+dao层实现类继承SqlSessionDaoSupport方法
+注入sqlSessionFactory
+2.MapperFactoryBean
+建立一个mapper接口，namespace名字和包名一样
+创建MapperFactoryBean对象（直接注入接口）
+注入sqlSessionFactory和mapper接口
+在创建一个UserMapper对象注入MapperFactoryBean
+3.MapperScannerConfigurer
+创建mapper接口
+创建MapperScannerConfigurer扫描mapper接口（扫描包）
+创建UserMapper对象

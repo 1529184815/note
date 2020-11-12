@@ -1,0 +1,42 @@
+消息模型
+1.基本消息模型
+生产者-消息队列-消费者
+默认自动销毁消息（消费者不管初步出错）
+消费者发送ack验证是否消费消息
+
+2.work模型
+生产者-消息队列-消费者1
+	         -消费者2
+一个生产者，多个消费者
+同一时间执行一个
+channel.basicQos(1);设置能者多劳
+
+3.publish/Subscribe 发布和订阅模型
+fanout
+生产者-交换机-消息队列1-消费者1
+	      -消息队列2-消费者2
+
+4.路由模式 direct （多个routingkey）
+生产者-交换机-消息队列1-消费者1
+	      -消息队列2-消费者2
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, "insert");
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, "update");
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, "delete");
+
+5.通配符模式topic 多了通配符
+         audit.# 能匹配 audit.irs.corporate 或者 audit.irs
+         audit.* 只能匹配 audit.irs
+
+如何避免消息的丢失和消息的堆积
+1.消费者发送ack
+2.持久化
+	交换机的持久化
+	队列的持久化
+	消息的持久化
+3.mq向生产方发验证（生产者的消息确认）publish confirm
+4.发送消息前，将消息持久化到数据库
+
+幂等性（同一接口被重复执行，其结果一致）
+
+ 
+

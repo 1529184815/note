@@ -1,0 +1,28 @@
+普通文件上传：
+
+创建文件夹
+创建 磁盘文件项工厂
+DiskFileItemFactory factory
+servlet加载磁盘文件项
+servletupload （factory）  upload
+解析request获得磁盘文件项
+upload.parse（request）
+遍历文件项
+判断是否是文件还是普通表单
+isFormField
+不是则写入服务器下对应的路径和名字
+write（new File（path，name））
+
+springmvc文件上传（不用解析request，但是要配置文件上传解析器）
+创建文件夹
+upload.getOriginalFilename() 获得文件的名字
+upload.transferTo（new File（path，name））写入服务器下对应的路径和名字
+
+跨服务器上传
+使用jersey插件
+定义另一个服务器的路径
+创建一个客户端 Client.create（）
+client.resource(path + filename);
+put（）
+
+

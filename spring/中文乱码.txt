@@ -1,0 +1,13 @@
+1、浏览器调用jsp，html等页面中文显示乱码
+	<meta name="content-type" content="text/html; charset=UTF-8">  
+	response.setContentType("text/html;charset=UTF-8")
+2.response乱码问题
+	response.setCharacterEncoding("UTF-8"); response.getWriter()输出的字符流的乱码问题
+	response.setContentType("text/html;charset=UTF-8") 浏览器的解码方式
+	response.setHeader("content-type","text/html;charset=UTF-8") 设置请求头
+3.request乱码问题
+	浏览器传到服务器的编码是ISO-8859-1 所以先用ISO-8859-1编码再用utf-8解码
+	比如传到服务器的是username
+	byte[] byte=username.getBytes("ISO-8859-1") 以ISO-8859-1编码成二进制文件
+	new String（byte,"utf-8"）;解码成utf-8的字符串
+	

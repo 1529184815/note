@@ -1,0 +1,34 @@
+建立eureka服务器
+导入eureka服务器启动器
+	<dependency>
+            		<groupId>org.springframework.cloud</groupId>
+            		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        	</dependency>
+配置入口添加EnableEurekaServer注解
+配置application
+server.port
+eureka.client.service-url:  defaultZone:url     //注册其他eureka到注册中心
+register-with-eureka =false 不把自己注册到注册中心
+
+客户端
+lease-renewal-interval-in-seconds: 30 心跳默认30s 
+lease-expiration-duration-in-seconds: 90 最小过期时长90s没有连接（心跳）就剔除（注意不是立即剔除，服务down机后，默认60进行一次剔除 见eviction-interval-timer-in-ms: ）
+服务剔除时间=lease-renewal-interval-in-seconds+lease-expiration-duration-in-seconds+eviction-interval-timer-in-ms三者之和
+fetch-registry: true 是否拉取服务列表
+registry-fetch-interval-seconds: 30 拉取服务列表的时长
+
+服务端
+eviction-interval-timer-in-ms: 60*1000 默认60s剔除一次（服务down机后）
+自我保护机制 网路环境不良的情况，不会立即剔除，而是等到网络环境在连接在85%以上后，再down机，才进行剔除（15分钟）
+
+建立其他服务
+导入eureka客户端启动器
+	<dependency>
+            		<groupId>org.springframework.cloud</groupId>
+            		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        	</dependency>
+配置入口添加EnableDiscoveryClient注解   任何注册中心都可以用
+配置application
+server.port
+eureka.client.service-url:  defaultZone:url     //通服务注册中心的url一样
+

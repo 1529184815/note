@@ -1,0 +1,26 @@
+导入依赖
+建立配置文件META-INF/persistence.xml
+编写orm实体类
+EntityManagerFactory factory= Persistence.createEntityManagerFactory("myJpa");//加载配置文件创建实体管理器工厂
+EntityManager entityManager = factory.createEntityManager();//创建实体管理器
+jpql面向对象的查询方式
+查询所有
+String jpql=“from Customer”
+entityManager .createQuery(jpql);
+排序查询
+String jpql=“from Customer oder by id desc”
+entityManager .createQuery(jpql);
+聚合函数所有账户
+String jpql=“select count（id） from Customer oder by id desc”
+entityManager .createQuery(jpql);
+分页查询
+String jpql=“from Customer”
+entityManager .createQuery(jpql);
+query.setFirstResult(0) //开始位置
+query.setMaxResults(2); //结束位置=0+2
+条件查询
+String jpql=“from Customer where id=1 and cusname=？”
+entityManager .createQuery(jpql);
+query.setParameter(1,"小李");
+
+

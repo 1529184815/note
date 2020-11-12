@@ -1,0 +1,22 @@
+最开始：
+	RestTemplate 连接其他服务器
+String url="http:///:8080/user/"+id;
+restTemplate.getForObject(url,User.class);
+
+eureka
+    	@Autowired
+   	DiscoveryClient discoveryClient;
+   	instance = discoveryClient.getInstance("user-service");返回一个集合
+	String url = "http://"+instance.getHost()+":"+instance.getPort()+"/user/"+id
+	restTemplate.getForObject(url,User.class);
+	
+负载均衡+eureka
+第一种方式
+	@Autowired
+	private RibbonLoadBalancerClient client;
+	instance = client.choose("user-service")//获得名字为user-service的服务器（已经负载均衡过） 返回一个实例
+	String url = "http://"+instance.getHost()+":"+instance.getPort()+"/user/"+id
+	restTemplate.getForObject(url,User.class);
+第二种方式
+	String url="http://user-service/test/"+id; //过滤器去根据user-service从eureka上拉取地址
+	restTemplate.getForObject(url,User.class);

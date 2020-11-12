@@ -1,0 +1,47 @@
+keys * 展示所有key
+type key 类型
+exists key 判断 key 是否存在 1存在 0不存在
+del key 删除 key
+select 0-15 选择redis库默认16个库
+expire key seconds 设置key的过期时间
+persist key 移除key的过期时间
+ttl key 剩余生命 
+
+set key value <key,value>
+get key
+incr 自动增长
+decr 自动减少
+mset 存多个
+mget 取多个
+
+hash <key,Map<key,value>>
+hset user:123 name "Rose" 设置name
+hset user:123 age "21" 设置age
+hget user:123 name 获得name
+hget user:123 age 获得age
+hgetall user:123 获得所有keyvalue
+hkeys user:123 获得所有key
+hvalues user:123 获得value
+
+list
+lpush key value
+rpush key value
+lrange key start end （0到-1 所有）
+lpop key value
+rpop key value
+
+set  不允许重复元素
+sadd key value
+smenbers key
+srem key value
+
+sortset
+zadd key score value （按照score排序）
+zrange key start  end （withscores）
+zrem key value
+
+持久化
+RDB 默认方式，不需要配置，在一定间隔时间中检测key的变化情况，然后持久化数据
+AOF 日志记录方式，没记录一条都持久化硬盘
+
+cmd 找到bat文件 配置文件

@@ -1,0 +1,54 @@
+spring
+IOC控制反转（把对象交给容器去创建）
+  创建对象 
+      @Component:适用于任何对象的生成
+      @Controller：web层的对象的生成
+      @Service：service层的对象的生成
+      @Repository：dao层的对象的生成
+  依赖注入 （通过容器注入依赖关系）
+      @Autowired 根据数据类型注入，如果数据类型相同，那么再根据变量名         称查找
+      @Qualifier 根据数据类型注入上，再按照变量名称注入（给类成员注入时           和@Autowired一起用    给方法注入时可以单独使用）
+      @Resource 根据变量名称或者单独取名（Resource（name=“”）） 
+      @Bean 相当于spring配置文件的<bean></bean>
+      @Configuration 该注解下的类相当于一个spring被指文件<beans></beans>
+      @ContextConfiguration 导入配置文件 测试类使用 junit没有容器无法使用@Autowired注入对象，所以要用@Runwith使用spring整合的junit（classes=字节码文件，location=xml文件）
+      @Import 导入其他配置文件
+      @ConponetScan 注解扫描
+      @PropertyResource properties配置文件
+      @Value 注入参数（可以使用spring el表达式）      
+aop（面向切面编程，面向对象的扩展）
+      @Aspect 配置切面
+      @PointCut 切入点(其实就是一个被切对象的其中一个方法)
+      @Before 配置前置通知
+      @AfterReturning  配置后置通知
+      @AfterThrowing 配置异常通知
+      @After 最终通知
+      @Around 环绕通知（ProceedingJoinPoint  pjp） pjp.getArgs()获得参数  pjp.proceed()执行当前方法  在pjp.proceed()前时前置通知 后是后置通知  proceed()无法用Exception 要使用Throwable
+      注意:在不使用环绕通知时，最终通知先于后置通知
+      spring对aop的支持<aop:aspectj-autoproxy/>
+tx（事务）
+     xml：1.数据源 （DataSource）
+              2.事务管理器（DataSourceTransactionManager）
+              3.事务的通知（tx:advice）
+              4.配置切面（aop:config）
+     spring对事务的支持<tx:annotation-driver transaction-manager=""/>
+     注解：
+              @Transactional 该注解下的方法或者类使用事务控制 最好用配置文件 用@Transaction 每一个方法都要写属性 
+	REQUIRED（默认值）：在有transaction状态下执行；如当前没有transaction，则创建新的transaction；
+
+
+	SUPPORTS：如当前有transaction，则在transaction状态下执行；如果当前没有transaction，在无transaction状态下执行；
+
+
+	MANDATORY：必须在有transaction状态下执行，如果当前没有transaction，则抛出异常IllegalTransactionStateException；
+	
+
+REQUIRES_NEW：创建新的transaction并执行；如果当前已有transaction，则将当前transaction挂起；
+
+
+	NOT_SUPPORTED：在无transaction状态下执行；如果当前已有transaction，则将当前transaction挂起；
+	
+
+NEVER：在无transaction状态下执行；如果当前已有transaction，则抛出异常IllegalTransactionStateException。
+@Value 解析properties文件
+@PropertySource 配置文件properties引入

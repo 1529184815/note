@@ -1,0 +1,50 @@
+zuul网关  一系列的过滤器
+导入依赖
+ <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+</dependency>
+
+路由（问题路径写死了）
+zuul:
+  routes:
+    hehe: #名字
+      path: /user-service/**
+      url: http://127.0.0.1:8084
+
+user-service: #名字
+      path: /user-service/**
+      #url: http://127.0.0.1:8081 不要写死
+      serviceId: user-service
+
+customer-service: /customer-service/** 
+
+默认配置customer-service和和后面/customer-service/**一样
+ignored-services:
+    - customer-service 是这个服务浏览器无法调用，但是服务之间可以调用
+单个去前缀
+strip-prefix: false 去除前缀 以前访问路径 http://localhost:8085/user-service/user/1 现在访问路径 http://localhost:8085/user/1
+ user-service: #名字
+      path: /user/**
+      strip-prefix: false
+path里/user/要和user-service服务里的请求路径相同 
+
+所有去前缀（没必要使用）
+routes:
+	user-service: /user/**
+strip-prefix: false
+prefix：/pre
+
+
+abstractRibbonCommand
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000  //熔断器断掉服务的时间
+ribbon:
+  ConnectionTimeout: 1000  负载均衡连接的时间
+  ReadTimeout: 1000  负载均衡读取数据的时间
+(read+connect)*2 < timeoutInMilliseconds 

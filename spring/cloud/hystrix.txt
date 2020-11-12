@@ -1,0 +1,27 @@
+@EnableCircuitBreaker 开启熔断机制
+@EnableHystrix 开启hystrix熔断机制
+@DefaultProperties(fallbackMethod="getUserFallBack") 服务降级的方法 写在类上 注意 通用方法不能写参数 
+@HystrixCommand(fallbackMethod="getUserFallBack") 写在方法上
+通用降级的方法可以不用写@ResponseBody 跟普通方法一样的返回值 但是使用降级方法的请求（RequestMapping）必须写@ResponseBody 或者写modelandview
+@HystrixCommand(fallbackMethod="getUserFallBack")参数必须与使用降级方法的请求（RequestMapping）一致
+
+ @HystrixCommand(commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000")//可以在hystrix包下的HystrixCommandProperties查找超时熔断       单个配置
+ })
+
+@DefaultProperties(fallbackMethod="getUserFallBack"，commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000") //可以在hystrix包下的HystrixCommandProperties查找超时熔断       类的配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000											 #所有熔断的时长
+
+ @HystrixCommand(commandProperties = {
+            //@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000"),//可以在hystrix包下的HystrixCommandProperties查找超时熔断
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"), 请求量 每十个请求统计一次
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"), 十秒钟连一下服务器，判断是否能连通（重连）
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60") 60%的错误页面就断开服务（熔断机制）
+    })

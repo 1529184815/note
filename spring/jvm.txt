@@ -1,0 +1,16 @@
+主动引用（调用类的构造器）
+new 
+new当前类 当前类的父类也会构造
+调用静态变量（不包括静态常量）
+反射
+
+
+被动引用
+调用静态常量
+子类引用父类的静态变量
+定义类数组
+
+引用类加载器（c 不继承ClassLoader jre/lib/rt.jar 没有父类）
+扩展类加载器（java 继承ClassLoader jre/ext/*.jar）
+引用程序类加载器（java 继承ClassLoader classpath/path）
+自定义类加载器（java 继承ClassLoader）

@@ -1,0 +1,21 @@
+ConcurrentHashMap（分段16段，给每一段加锁 ConcurrentHashTable实现的）
+
+ConcurrentHashTable（分段加锁） HashTable（全部加锁）
+
+CopyOnWrite(写的时候加锁，适合多读)
+
+CopyOnWriteArrayList
+CopyOnWriteArraySet
+
+Queue
+非阻塞队列
+ConcurrentLinkedQueue
+速度快，安全
+阻塞队列
+ArrayBlockingQueue (固定长度的阻塞队列)
+LinkedBlockingQueue(无界队列)
+SynchronizQueue(实时队列 只要队列有数据就输出 队列一直阻塞的等待数组有数据)
+PrioritiyBlokingQueue（优先队列 通过comparable接口比较优先级）
+DelayQueue（延时队列 通过Delayed接口比较延时）
+
+

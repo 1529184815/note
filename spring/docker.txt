@@ -1,0 +1,112 @@
+
+启动
+systemctl start docker
+查看状态
+systemctl status docker
+关闭
+systemctl stop docker
+重启
+systemctl restart docker
+开机自动启动
+systemctl enable docker
+
+查看镜像
+docker images
+搜索镜像
+docker search name
+拉去镜像
+docker pull name
+删除镜像
+docker rmi 镜像id （`镜像id`）
+
+容器
+查看运行的容器
+docker ps
+退出容器
+exit 直接关闭容器
+查看当前正在运行的容器
+docker ps  -a
+创建容器
+docker run 
+-l  运行容器
+-t 容器启动后进入命令行  交互
+--name 命名
+-v 目录映射
+-p 端口映射
+交互式方式创建并运行
+docker run -it --name=testmysql mysql /bin/bash
+守护式方式创建容器
+docker run -di --name=testmysql2 mysql
+运行
+docker exec -it testmysql2 /bin/bash
+开启容器
+docker start centos
+停止容器
+docker stop centos
+拷贝
+docker cp 文件A 容器名：文件夹
+docker cp test.txt centos:/usr/local
+docker cp 容器名：文件夹 文件A
+docker cp centos:/usr/local test.txt 
+挂载（同时操作）（当操作当前/usr/local时容器里/usr/local也操作了）
+一般对配置文件进行挂在
+docker run -di --name=centos -v /usr/local:/usr/local centos:7
+查看容器ip
+docker inspect centos
+删除容器
+docker rm centos
+
+mysql 部署
+docker run -di --name=tensqure_mysql -p 33306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+-p 端口映射
+-e 添加环境变量 MYSQL_ROOT_PASSWORD 是root用户的密码
+
+tomcat部署
+拉取镜像
+docker pull tomcat:7-jre7
+创建容器
+docker run -di --name=mytomcat -p 9000:8080 -v /usr/local/webapps:/usr/local/tomcat/wevapps tomcat:7-jre7
+
+nginx部署
+拉取镜像
+docker pull nginx
+创建容器
+docker run -di --name=mynginx -p 80:80 nginx
+include /etc/nginx/conf.d/*.conf;
+上传网页到linux再把网页传到nginx
+改个名字
+mv dist html
+docker cp html mynginx:/usr/share/nginx/html
+
+redis部署
+docker pull redis
+docker run -di --name=myredis -p 6379:6379 redis
+
+备份与迁移
+容器保存为镜像
+docker commit mynginx mynginx_i
+镜像备份
+docker save -o mynginx.tar mynginx_i
+镜像的恢复与迁移
+docker load -i mynginx.tar
+-i 输入文件
+
+dockerfile构建镜像
+vi Dockerfile
+FROM centos:7 基于什么镜像
+MAINTAINER huxiao 镜像创建者
+WORKDIR /usr 工作目录
+RUN mkdir /usr/local/java  创建目录
+ADD 文件 /usr/local/java 
+
+ENV JAVA_HOME /usr/local/java/jdk1.8  环境变量
+ENV JRE_HOME $JAVA_HOME /jre
+ENV CLASSPATH $JAVA_HOME /bin/dt.jar:$JAVA_HOME /lib/tools.jar:$JAVA_HOME /lib:$CLASSPATH
+ENV PATH $JAVA_HOME /bin:$PATH
+
+docker私有仓库
+私有仓库构建
+docker run -di --name=registry -p 5000:5000 registry
+镜像上传到私有仓库
+docker tag jdk1.8 ip:5000/jdk1.8
+docker push ip:5000/jdk1.8

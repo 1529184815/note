@@ -1,0 +1,18 @@
+创建索引库
+1.创建索引库的位置（Director） 存储在内存还是磁盘
+2.创建索引写（indexWriter）对象
+3.资源路径
+4.读取资源路径
+5.创建域
+6.关闭索引writer对象
+
+查询
+1.获取索引库对象（Director）
+2.创建索引读取（IndexReade）对象
+3.创建索引搜索（IndexSearch）对象
+4.创建查询（Query）对象
+5.执行查询 （IndexSearch.search(query,10)）返回最大记录数
+6.获得文档列表 
+7.遍历根据文档id获取文档
+8.输出查询内容
+9.关闭索引Reader对象

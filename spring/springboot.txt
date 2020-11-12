@@ -1,0 +1,3 @@
+@ConfigurationProperties 当前类是配置属性类，prefix前缀
+@EnableConfigurationProperties 使用配置的属性类
+@Data lombok自动生成set，get，hashcode，tostring等方法

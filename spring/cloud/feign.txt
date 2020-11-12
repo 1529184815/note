@@ -1,0 +1,36 @@
+feign不用去拼接url了 实现了负载均衡ribbon，还有熔断hystrix
+导入依赖
+<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+启动feign客户端
+@EnableFeignClients
+创建feign客户端（接口）
+
+@GetMapping("/test/{id}")//这里是user-service的controller地址
+    User queryById(@PathVariable("id") Integer id);
+@FeignClient("user-service")
+
+#feign里面的负载均衡机制超时时长默认1s
+ribbon:
+  ConnectionTimeOut: 1000  1秒钟没有获取连接抛异常
+  ReadTimeOut: 1000 连接上1秒钟没有读取到数据抛异常
+
+feign:
+  hystrix:
+    enabled: true 开启熔断机制
+
+feign熔断配置
+@FeignClient(value = "user-service",fallback = UserClientImpl.class)
+
+请求压缩：数据大
+feign:
+	compression:
+		request:
+			enabled: true 开启请求压缩
+			mime-types： text/html，application/xml 设置数据类型
+			min-request-size： 2048 触发压缩大小下限
+		response
+			enabled:true 开启相应压缩
+日志级别

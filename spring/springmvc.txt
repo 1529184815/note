@@ -1,0 +1,52 @@
+struts2和springmvc区别
+	相同点：都是表现层框架
+	             处理请求的机制都是一个核心控制器
+	             底层都离不开servletapi
+	不同点：struts2入口是filter mvc是servlet
+	             struts2是多例的，每次请求都要创建对象，mvc是单例的，只有一个对象，所以mvc比struts2速度稍微快一点，省去了创建对象的时间
+	             mvc更简洁，json处理更方便
+	             struts2有ognl表达式开发效率比mvc快，但是执行效率没有jstl快，尤其是表单
+@RequestMapping 建立请求url和处理请求的方法的联系
+	属性：
+	        path：指定请求路径 作用和value作用一样
+	        method：请求的方法（Post，Get，Delete，Put，Option，Head，Trace，Connect）
+	        value：指定请求路径 作用和path作用一样
+	        param：请求方法必须传的属性
+	        headers：请求头
+@RequestParam 把指定名称的数据传给控制器的形参
+	属性：
+	       value：指定名称的数据（前端）等同于value
+	       name：指定名称的数据 （前端）等同于name
+	       require：必须有value或者name里的数据，否则无法访问
+@RequestBody 获得请求体的内容，获得键值对 get不适用 get没有请求体
+	属性：
+	       require：默认为true，是否必须有请求体，如果为true，get失效
+@ResponseBody 返回数据到请求体
+@PathVaribale 获取url中的数据 /user/{id} 获得id的值
+@RequestHeader 获得请求头
+@CookieaValue 获得指定名称cookie的值
+@ModelAtrribute 注解下的方法先执行
+model对象底层会将内容存到request域中 model.setAttribute("msg","test")
+modelMap获得值
+SessionState setCompelet 清除session域的内容
+@SessionAttribute 多次执行控制器方法的参数共享 @SessionAttribute （value={"msg"}） 把model对象的msg存到session
+restfull风格 地址不变，请求方式改变 
+	原来：				现在
+	           	user/sava				user  method=post
+		user/find 				user  method=get
+		user/update			user  method=put
+		user/findbyid			user/{id} method=get
+返回值是void，默认访问的是@RequestMapping里的路径加上.jsp
+返回值是String，访问得是@RequestMapping下方法的返回值，利用视图解析器访问
+返回值是modelandview 返回一个modelandview 对象 ，modelandview.setView()，添加访问的前端页面，modelandview.setAttribute(),设置值到request域中
+“forward：路径”  转发 服务器内部访问
+“redirect：路径”重定向 web-info下的访问不了，用户访问不了web-info下的文件
+MultipartResolver 文件解析器 FormData可以封装表单数据
+HandlerMapping 处理器映射器 找到执行的方法
+HandlerAdapter 处理器适配器 执行找到的方法
+ViewResolver 视图解析器 
+HandlerExceptionResolver 异常处理器
+HandlerIntercepter 拦截器处理器
+	preHandle：Controller之前执行
+	postHandle:Controller之后执行，jsp之前执行
+	afterCompletion:jsp,Controller都执行完执行

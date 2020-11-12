@@ -1,0 +1,16 @@
+规则配置 默认是轮询
+user-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalance.RandomRile（随机）
+String url="http://user-service/test/"+id;
+user-service注册的服务器名字
+再RestTemplate上加上LoadBalance注解，会生成一个拦截器把url解析（根据user-service解析）
+负载均衡的算法：轮询，随机，hash环
+
+第二种方法
+再controller配置 RibbonLoadBalancerClient client
+instance = client.choose(user-service)获得一个实例
+instance .getHost 获得主机名
+instance.getPort 获得端口号
+String url="http://"+instance.getHost()+":"+instance.getPort()+"/test/"+id;
+

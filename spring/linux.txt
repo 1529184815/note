@@ -1,0 +1,87 @@
+cd ~ 回家
+cd -  最后两个命令切换
+cd .. 上一级目录
+cd /home 绝对路径 /表示根目录
+cd home 相对路径
+pwd 查看当前目录
+
+ls 查询当前目录的普通的文件和文件夹（无法查看隐藏文件）
+ls -a 展示所有文件和文件夹（可以查看隐藏文件 小数点开头）
+ls -l  展示所有文件和文件夹的详细信息
+ls -lh 展示所有文件和文件夹的详细信息 (h表示human 人看的懂的方式显示)
+ls -lah 上面连起来
+
+mkdir /home/admin/wendang/music -p 如果前面目录不存在，先创建前面的路劲，再创建目标路径
+mkdir a b 创建两个文件夹 用空格隔开
+mkdir wendang/{nan,nv} 创建两个文件夹
+touch a.txt 创建文件
+rm a.txt 删除文件
+rm a -r 删除目录
+rm * 不会删除目录和隐藏文件
+rm * -r 不会删除隐藏文件（隐藏文件无法删除，只能一个个删除）
+
+clear 清楚当前页面
+
+ctrl+c 结束当前命令
+
+drwx rwx r-x d 代表文件夹 - 代表文件
+rwx r 读 w 写 x 执行
+r-x 可读不可写 -表示不
+
+？ 一个任意字符
+*  多个任意字符
+[abc] a，b，c其中任意一个
+[a-x] a-x其中任意一个
+
+cp 1.txt 2.txt -a 复制1.txt的所有内容，连创建时间都会复制
+cp a b -r -r如果是文件夹，把文件夹下的所有内容拷贝
+cp a b -i  -i是否覆盖
+cp a b -v -v显示拷贝进度
+
+mv 1.txt abc.txt 把1.txt移动到当前目录下，相当于改名 不需要-r
+-f 覆盖 默认覆盖
+-i 确认是否覆盖
+-v显示拷贝进度
+
+ls > 1.txt 如果>左边的命令有结果 把结果存到1.txt里
+ls > 1.txt 结果会覆盖
+ls>>1.txt结果不会覆盖（追加）
+cat 1.txt 显示1.txt文件的内容到终端
+cat 1.txt 2.txt 显示两个文件
+cat 1.txt 2.txt>3.txt
+more 查看内容夺得文件 b上翻 space下翻
+ls -adl / | more 左边的结果交给右边的命令处理
+
+ln -s 1.txt 1_link 软连接（指向目标）
+ln 1.txt 1_link 硬链接（不能给目录创建）（相当于拷贝一份）
+
+grep hello test.txt 搜索hello在test.txt中的一行（找文件内容）
+-n 显示哪一行
+-i 忽略大小写
+-v 相反的找
+
+find . -name 2.txt（找文件）. 当前目录 ..上一级目录
+
+tar -c -f txt.tar 2.txt 3.txt  打包 txt.tar打包到文件  2.txt 3.txt 被打包的文件 没有压缩
+tar cf txt.tar 2.txt 3.txt 
+tar tf txt.tar 显示txt.tar的文件
+tar xf txt.tar 解压
+tar xvf txt.tar 解压显示txt.tar的文件（解压到当前目录）
+tar xvf txt.tar -C 目录名 解压到 目录名 下
+
+gzip压缩
+gzip -r txt.tar 压缩 txt.tar 变成txt.tar.gz
+gzip -d txt.tar.gz 解压 
+
+打包加压缩 tar czf b.tar.gz *txt
+解压并解包 tar zxf b.tar.gz -C btar
+ 
+chmod u+x test.txt 给test.txt添加x权限可执行
+chmod u-x test.txt 给test.txt减少x权限
+chmod u=rwx test.txt 把rwx权限复制给test.txt
+
+
+
+
+
+

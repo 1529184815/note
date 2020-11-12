@@ -1,0 +1,29 @@
+@EnableCircuitBreaker
+@EnableDiscoveryClient
+@SpringBootApplication
+
+上面三个注解等同于SpringCloudApplication
+
+
+logging:
+   level: 
+      cn：debug
+config-server从git上拉取配置信息
+spring-cloud-bus: 消息总线
+spring-cloud-stream: 消息通信
+spring-cloud-hystrix-dashboard: 容错统计
+spring-cloud-steuth: 链路追踪 结合ZipKin
+
+
+
+
+
+
+
+
+
+
+
+
+
+

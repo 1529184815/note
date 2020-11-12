@@ -1,0 +1,10 @@
+docker创建命令 
+docker run -dti  --network=host --name storage -e TRACKER_SERVER=192.168.56.1:22122 -v /var/fdfs/storage:/var/fdfs  -v /etc/localtime:/etc/localtime  delron/fastdfs storage -v nginx位置:/usr/local/nginx/conf/nginx.conf
+
+文件目录 /var/fdfs
+
+storage配置 /etc/fdfs
+
+nginx /usr/local/nginx/conf/nginx.conf
+
+
