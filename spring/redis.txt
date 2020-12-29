@@ -37,7 +37,8 @@ srem key value
 
 sortset
 zadd key score value £®∞¥’’score≈≈–Ú£©
-zrange key start  end £®withscores£©
+zrange key start  end £®withscores£©À≥–Ú
+zrevrange key start end £®withscores£©ƒÊ–Ú
 zrem key value
 
 ≥÷æ√ªØ

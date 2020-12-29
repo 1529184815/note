@@ -1,0 +1,16 @@
+happen-before规则
+1.程序顺序规则  一个线程的所有操作 happen-before（发生在） 这个线程后续的所有操作（之前）。
+2.传递性 如果A happen-before B,B happen-before C,那么A happen-before C.
+3.join规则 一个线程A里的B.join操作 happen-before （发生在） 在这个A后续操作（之前）。
+4.start规则 如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()操作happens-before于线程B中的任意操作
+5.监视器锁规则 对锁的解锁 happen-before 下一次对锁的加锁
+6.volatile变量规则 对volatile域的写 happen-before volatile域的读
+7.中断规则 线程对中断的判断 happen-before（发生在） interrupt（）执行（之前）。
+8.对象finalize规则：一个对象的初始化完成（构造函数执行结束）先行于发生它的finalize()方法的开始。
+
+final重排序规则（确保并发操作时 线程读到的对象的初始化值是对的，而普通值就没这种保障）
+基本类型（final定义的变量不会出错 ）
+禁止对final域的写 重排序 到构造器外 （先要在构造器初始化 在构造器return之前插入屏障 确保对象的final域已经初始化了）
+初次读对象引用和初次读该对象包含的final域 不能重排序 （先读对象的引用 再读final域）
+引用类型
+禁止在构造函数对一个final修饰的对象的成员域的写入与随后*这个被构造的对象的引用赋值给引用变量 重排序
